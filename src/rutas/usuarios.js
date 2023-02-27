@@ -2,21 +2,16 @@
 const express = require('express');
 const router = express.Router();
 
+//Semana 07
+const controlador = require('../controladores/usuarios'); // Requerir controlador
+
 // Crear
-router.post('', function(req,res) {
-    res.send('Usuaria creada');
-});
+router.post('',  controlador.crear);
 // Editar (eliminar)
-router.put('/:id', function(req,res) {
-    res.send('Usuaria actualizada correctamente');
-});
+router.put('/:id', controlador.editar);
 // Ver todas
-router.get('', function(req,res) {
-    res.send('Lista de usuarios');
-})
+router.get('', controlador.verTodas);
 // Ver una
-router.get('/:id', function(req,res) {
-    const id = req.params.id;
-    res.send('Detalles de la usuaria ' + id);
-});
+router.get('/:id', controlador.verUna);
+
 module.exports = router; // Es un middleware
