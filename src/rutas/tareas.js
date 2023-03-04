@@ -2,33 +2,21 @@
 const express = require('express');
 const router = express.Router();
 
-// Crear
-router.post('', express.json(), function(req,res) {
-    console.log(req.body);
-    res.send('Tarea creada');
-});
-// Editar (eliminar)
-router.put('/:id', function(req,res) {
-    res.send('Tarea actualizada correctamente');
-});
-// Ver todas
-router.get('', function(req,res) {
-    //res.send('Lista de tareas');
-    const tareas = [
-        {titulo: 'Tarea 1', status: 'Nueva'},
-        {titulo: 'Tarea 2', status: 'Nueva'},
-        {titulo: 'Tarea 3', status: 'En progreso'},
-        {titulo: 'Tarea 4', status: 'En progreso'},
-        {titulo: 'Tarea 5', status: 'Terminada'},
-        {titulo: 'Tarea 6', status: 'Terminada'}
-    ]
-    res.render('tareas', {
-        tareas
-    });
-})
-// Ver una
-router.get('/:id', function(req,res) {
-    const id = req.params.id;
-    res.send('Detalles de la tarea ' + id);
-});
+// Semana 07
+const controlador = require('../controladores/tareas'); // Requerir controlador
+
+// Insertar/crear
+router.post('/crear', controlador.crear);
+
+// Listado completo
+router.get('/', controlador.verTodas);
+
+// Listado específico
+router.get('/:id', controlador.verUna);
+
+// Editar/Actualizar
+router.put('/actualizar/:id', controlador.editar);
+
+// Eliminar
+
 module.exports = router; // Es un middleware
