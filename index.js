@@ -12,12 +12,19 @@ const path = require('path');
 
 // Pedir funciones
 const app = express();
+// Para hacerla variable de entorno hay que requerir el archivo para la conexión con MongoDB
+require('dotenv').config();
+// Cadena de conexión con Mongo (no se debe poner la URL en código porque va a cambiar, se usa .env)
+// Los archivos que inician con punto están ocultos
+// No se debe subir a repo, pero se puede subir una de ejemplo (de estructura/variables de entorno que se deben usar)
+const MongoURL = process.env.MONGO_URL;
+console.log(MongoURL);
 // Llamar a handlebars
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', './src/views');
 // Puerto con el que se va a conectar
-const port = 3001;
+const port = 3001; // Cuando se despliegue en Heroku o similar dará la variable, hay que poner: process.env.PORT || 3000
 
 // 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
