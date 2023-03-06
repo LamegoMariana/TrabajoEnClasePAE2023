@@ -18,8 +18,9 @@ const controlador = {
     // Ver todas
     verTodas: (req,res)=> {
         // Se consideran los dos posibles escenarios que da la promesa
-        modelo.buscar()
+        modelo.find({/*inserte filtro aquí*/})
         .then(response => {
+            console.log('Respuesta: ', response);
             //res.response(response); Así es normal, pero como tenemos el handlebars...}
             res.render('tareas', { tareas: response });
         })

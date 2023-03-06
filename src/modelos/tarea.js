@@ -1,22 +1,13 @@
 // Semana 07
     // El controlador no sabe de dónde vienen los datos, el modelo si sabe
-const tarea = {
-    buscar: (filtros) => {
-        const tareas = [
-            {titulo: 'Tarea 1', status: 'Nueva'},
-            {titulo: 'Tarea 2', status: 'Nueva'},
-            {titulo: 'Tarea 3', status: 'En progreso'},
-            {titulo: 'Tarea 4', status: 'En progreso'},
-            {titulo: 'Tarea 5', status: 'Terminada'},
-            {titulo: 'Tarea 6', status: 'Terminada'}
-        ]
+const { Schema, model } = require('mongoose');
 
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(tareas)
-            }, 1000);
-        })
-    }
-}
+const tarea_schema = new Schema({
+    titulo: {type: String},
+    descripcion: {type: String},
+    status: {
+        type: String,
+        default: 'Nueva'}
+});
 
-module.exports = tarea;
+module.exports = model('tareas', tarea_schema);
