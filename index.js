@@ -11,6 +11,10 @@ const rutasM = require('./src/rutas');
 const path = require('path');
 // Mongoose
 const mongoose = require('mongoose');
+// Requerir swagger
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUI = require('swagger-ui-express');
+const swaggerConf = require('./swagger.config')
 
 // Pedir funciones
 const app = express();
@@ -24,16 +28,23 @@ const MongoURL = process.env.MONGO_URL;
 app.engine('handlebars', engine({
     runtimeOptions: {
         allowProtoProperties: true,
-        allowProtoMethodsByDefault: true
+        allowProtoMethodsByDefault: true,
+        allowProtoPropertiesByDefault: true,
+        allowedProtoProperties: true
     }
 }));
 app.set('view engine', 'handlebars');
 app.set('views', './src/views');
+
 // Puerto con el que se va a conectar
 const port = 3001; // Cuando se despliegue en Heroku o similar dará la variable, hay que poner: process.env.PORT || 3000
 
 // Conexión con views
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
+
+// Swagger, se puso aquí para que no pida el token
+const swaggerDocs = swaggerJsDoc(swaggerConf);
+app.use('/swagger', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 // Ahora se va a hacer a través del router
 app.use('', rutasM);
